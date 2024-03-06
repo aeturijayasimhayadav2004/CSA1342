@@ -1,0 +1,64 @@
+#include <stdio.h>
+#include <stdbool.h>
+
+#define MAX_STATES 10
+#define MAX_TRANSITIONS 10
+
+int transitions[MAX_STATES][MAX_TRANSITIONS][2]; // NFA transitions: states, transitions, destination state, input
+
+int main() {
+    int numStates; // Number of states in the NFA
+
+    printf("Enter the number of states in the NFA: ");
+    scanf("%d", &numStates);
+
+    // Input NFA transitions
+    printf("Enter NFA transitions (state, transition, destination state, input):\n");
+    printf("(Enter -1 to stop)\n");
+
+    for (int i = 0; i < numStates; i++)
+        for (int j = 0; j < MAX_TRANSITIONS; j++)
+            transitions[i][j][0] = transitions[i][j][1] = -1;
+
+    int state, transition, destState, input;
+    int i, j;
+
+    while (1) {
+        printf("Transition: ");
+        scanf("%d", &state);
+
+        if (state == -1) break;
+
+        scanf("%d %d %d", &transition, &destState, &input);
+
+        for (i = 0; i < MAX_TRANSITIONS && transitions[state][i][0] != -1; i++)
+            ;
+
+        transitions[state][i][0] = destState;
+        transitions[state][i][1] = input;
+    }
+
+    // Find epsilon closure for all states
+    printf("\nEpsilon Closures:\n");
+
+    for (i = 0; i < numStates; i++) {
+        bool visited[MAX_STATES] = {false};
+        visited[i] = true;
+
+        printf("Epsilon closure of state %d: %d ", i, i);
+
+        for (j = 0; j < MAX_TRANSITIONS; j++) {
+            int nextState = transitions[i][j][0];
+            int input = transitions[i][j][1];
+
+            if (input == -1 && !visited[nextState]) {
+                printf("%d ", nextState);
+                visited[nextState] = true;
+                j = -1;
+            }
+        }
+        printf("\n");
+    }
+
+    return 0;
+}
