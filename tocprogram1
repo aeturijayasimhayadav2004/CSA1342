@@ -1,0 +1,21 @@
+//start with 0 and end with 1
+#include <stdio.h>
+#include <string.h>
+
+int main() {
+    char str[100];
+
+    printf("Enter a string: ");
+    fgets(str, sizeof(str), stdin);
+    str[strcspn(str, "\n")] = '\0';  // Remove the newline character if present
+
+    int len = strlen(str);
+
+    if (len >= 2 && str[0] == 'a' && str[len - 1] == 'a') {
+        printf("String \"%s\" belongs to the language defined by the DFA.\n", str);
+    } else {
+        printf("String \"%s\" does not belong to the language defined by the DFA.\n", str);
+    }
+
+    return 0;
+}
