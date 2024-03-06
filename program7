@@ -1,0 +1,28 @@
+// starts with same two numbers and ends with same two numbers or 101 as substring
+#include <stdio.h>
+#include <string.h>
+
+int main() {
+    char str[100];
+
+    // Input the string
+    printf("Enter a string: ");
+    scanf("%s", str);
+
+    int len = strlen(str);
+
+    // Check if the string is empty
+    if (len == 0) {
+        printf("The string belongs to the language.\n");
+        return 0;
+    }
+
+    // Check if the string starts and ends with 'A' and follows the CFG A ? 0A | 1A | e
+    if (str[0] == 'A' && str[len - 1] == 'A' && str[1] == '1' && str[len - 2] == '1') {
+        printf("The string belongs to the language.\n");
+    } else {
+        printf("The string does not belong to the language.\n"); 
+    }
+
+    return 0;
+}
