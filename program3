@@ -1,0 +1,26 @@
+#include <stdio.h>
+
+int main() {
+    char str[100];
+
+    printf("Enter the string: ");
+    scanf("%s", str);
+
+    if (str[0] == '0') {
+        int index = 1;
+        
+        while (str[index] == '0' || str[index] == '1') {
+            index++;
+        }
+
+        if (str[index] == '1' && str[index + 1] == '\0') {
+            printf("The string belongs to the language defined by the CFG.\n");
+        } else {
+            printf("The string does not belong to the language defined by the CFG.\n");
+        }
+    } else {
+        printf("The string does not belong to the language defined by the CFG.\n");
+    }
+
+    return 0;
+}
